@@ -24,7 +24,7 @@ class AddContactForm(ModelForm):
 
 class AddServiceForm(forms.Form):
     all_services = Service.objects.all()
-    choices = []
+    choices = [(service.id, service.name) for service in all_services]
     service_name = forms.ChoiceField(choices=choices)
 
     def __init__(self, *args, **kwargs):
