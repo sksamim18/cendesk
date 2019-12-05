@@ -1,0 +1,59 @@
+{% extends 'taxmust/navbar.html' %}
+
+{% block title %} View all orders {% endblock %}
+
+{% block nav %}
+    {% if user.is_authenticated %}
+        <a class="nav-link text-dark" href="/user/logout">Logout</a>
+        <a class="nav-link text-dark" href="/dashboard/">{{ user.name }}'s Dashboard</a>
+    {% else %}
+        <a class="nav-link text-dark" href="/user/login">Login</a>
+        <a class="nav-link text-dark" href="/user/register/">Registration</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <br><br><br><br><br><br>
+    <h2 class="text-center">View Past Orders</h2>
+    <div class="container">
+    	<div class="row">
+    		<div class="col-md-4">
+				<ul class="list-group">
+					<li class="list-group-item">
+						<a href="/add-contact/">Add Order</a>
+					</li>
+					<li class="list-group-item">
+						<a href="/view-orders/">View Past Orders</a>
+					</li>
+					<li class="list-group-item">
+					    Completed Orders
+					</li>
+				</ul>
+    		</div>
+    		<div class="col-md-8">
+				<table class="table">
+				    <thead>
+				        <tr>
+				            <th scope="col">Service</th>
+				            <th scope="col">Customer</th>
+				            <th scope="col">status</th>
+				            <th scope="col">Payment Status</th>
+				        	<th scope="col">view details</th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				        {% for order in orders %}
+				        <tr>
+				            <td>{{ order.service.name }}</td>
+				            <td>{{ order.customer.phone_number }} - {{order.customer.customer_name }}</td>
+				            <td>{{ order.get_status_display }}</td>
+				            <td>{{ order.payment_status }}</td>
+				            <td><a href="/order/{{ order.id }}">View order</td>
+				        </tr>
+				        {% endfor %}
+				    </tbody>
+				</table>
+    		</div>
+    	</div>
+    </div>
+{% endblock %}

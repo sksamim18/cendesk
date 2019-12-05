@@ -1,0 +1,22 @@
+@import url(https://fonts.googleapis.com/css?family=Alata&display=swap);
+
+body {
+    font-family: 'Alata', sans-serif;
+}
+
+.nav-link {
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+}
+
+.nav-style{
+    font-size: 15px !important;
+}
+
+body {
+	background-color: #d3d3d34f !important
+}
+
+.white-bg {
+	background-color: white !important;
+}

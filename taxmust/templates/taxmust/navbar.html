@@ -1,0 +1,125 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}{% endblock %}</title>
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="{% static 'app.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-md fixed-top bg-light nav-style">
+            <a class="navbar-brand text-dark" href="/">Taxmust</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Business Registration
+                        </a>
+                        <div class="dropdown-menu shadow-lg" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item small" href="#">Private Limited Company</a>
+                            <a class="dropdown-item small" href="#">One Person Company ( OPC)</a>
+                            <a class="dropdown-item small" href="#">Limited Liability Partnership ( LLP)</a>
+                            <a class="dropdown-item small" href="#">Public Limited Company</a>
+                            <a class="dropdown-item small" href="#">Nidhi Company Registration</a>
+                            <a class="dropdown-item small" href="#">Producer Company</a>
+                            <a class="dropdown-item small" href="#">Section 8 Company</a>
+                            <a class="dropdown-item small" href="#">Micro Finance Company</a>
+                            <a class="dropdown-item small" href="#">Partnership firm</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Accounting Services
+                        </a>
+                        <div class="dropdown-menu shadow-lg" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item small" href="#">GST & GST Compliance</a>
+                            <a class="dropdown-item small" href="#">Trade Mark (TM) </a>
+                            <a class="dropdown-item small" href="#">Export & Import</a>
+                            <a class="dropdown-item small" href="#">Income Tax Filing</a>
+                            <a class="dropdown-item small" href="#">Food License & MSME Registration</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#">Tools</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#">Contact us</a>
+                    </li>
+                </ul>
+                {% block nav %}{% endblock %}
+            </div>
+        </nav>
+        {% block content %}{% endblock %}
+        <div class="container-fluid white-bg">
+            <footer class="container py-5">
+                <div class="row">
+                    <div class="col-md-2">
+                        <h5>Company Registration</h5>
+                        <ul class="list-unstyled">
+                            <li><a class="text-muted small" href="#">Private Limited Company</a></li>
+                            <li><a class="text-muted small" href="#">One Person Company (OPC)</a></li>
+                            <li><a class="text-muted small" href="#">Limited Liability Partnership ( LLP)</a></li>
+                            <li><a class="text-muted small" href="#">Nidhi Company Registration</a></li>
+                            <li><a class="text-muted small" href="#">Producer Company</a></li>
+                            <li><a class="text-muted small" href="#">Section 8 Company</a></li>
+                            <li><a class="text-muted small" href="#">Public Limited Company</a></li>
+                            <li><a class="text-muted small" href="#">Micro Finance Company</a></li>
+                            <li><a class="text-muted small" href="#">Partnership firm</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2">
+                        <h5>GST & GST Compliance</h5>
+                        <ul class="list-unstyled text-small">
+                            <li><a class="text-muted small" href="#">GST Registration</a></li>
+                            <li><a class="text-muted small" href="#">Goods & Service tax Return</a></li>
+                            <li><a class="text-muted small" href="#">E Way Bill Generation</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2">
+                        <h5>Trade Mark (TM)</h5>
+                        <ul class="list-unstyled text-small">
+                            <li><a class="text-muted small" href="#">Trade Mark Registration</a></li>
+                            <li><a class="text-muted small" href="#">Trademark Objection</a></li>
+                            <li><a class="text-muted small" href="#">Trademark Renewal</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2">
+                        <h5>Export & Import</h5>
+                        <ul class="list-unstyled text-small">
+                            <li><a class="text-muted small" href="#">Importer & Exporter Code ( IEC Code)</a></li>
+                            <li><a class="text-muted small" href="#">RCMC Registration</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2">
+                        <h5>Income Tax Filing</h5>
+                        <ul class="list-unstyled text-small">
+                            <li><a class="text-muted small" href="#">Income Tax ( Salaried)</a></li>
+                            <li><a class="text-muted small" href="#">Income Tax ( Business)</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2">
+                        <h5>Food License & MSME Registration</h5>
+                        <ul class="list-unstyled text-small">
+                            <li><a class="text-muted small" href="#">FSSAI License</a></li>
+                            <li><a class="text-muted small" href="#">FSSAI License Renewal</a></li>
+                            <li><a class="text-muted small" href="#">MSME / SSI License</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>

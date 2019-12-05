@@ -1,0 +1,39 @@
+{% extends 'account/navbar.html' %}
+
+{% block title %} Client Login{% endblock %}
+
+{% block nav %}
+    {% if user.is_authenticated %}
+        <a class="nav-link text-dark" href="/user/logout">Logout</a>
+        <a class="nav-link text-dark" href="/dashboard/">{{ user.name }}'s Dashboard</a>
+    {% else %}
+        <a class="nav-link text-dark" href="/user/login">Login</a>
+        <a class="nav-link text-dark" href="/user/register/">Registration</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <br><br><br><br><br><br>
+    <h4 class="text-center">Confirm Your account.Check your mail</h4>
+    <div class="container">
+    	<div class="row">
+    		<div class="col-md-4 ml-auto mr-auto">
+				<form action = '/user/confirm_otp/' method="post">
+				    {% csrf_token %}
+				    <small id="emailHelp" class="form-text text-muted">{{ error }}</small>
+				    <small id="emailHelp" class="form-text text-muted">{{ form.error }}</small>
+					<small id="emailHelp" class="form-text text-muted">{{ form.non_field_errors }}</small>
+				    <div class="form-group">
+				        {{ form.phone_number }}
+				        <small id="emailHelp" class="form-text text-muted">{{ form.phone_number.errors }}</small>
+				    </div>
+				    <div class="form-group">
+				        {{ form.otp }}
+				        <small id="emailHelp" class="form-text text-muted">{{ form.otp.errors }}</small>
+				    </div>
+				    <button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+    		</div>
+    	</div>
+    </div>
+{% endblock %}

@@ -1,0 +1,6 @@
+db.sqlite3
+taxmust/migrations/
+account/migrations/
+__pycache__/
+/media
+*.pyc

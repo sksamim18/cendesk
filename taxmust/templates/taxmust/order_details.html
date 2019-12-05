@@ -1,0 +1,62 @@
+{% extends 'taxmust/navbar.html' %}
+
+{% block title %} Order details {% endblock %}
+
+{% block nav %}
+    {% if user.is_authenticated %}
+        <a class="nav-link text-dark" href="/user/logout">Logout</a>
+        <a class="nav-link text-dark" href="/dashboard/">{{ user.name }}'s Dashboard</a>
+    {% else %}
+        <a class="nav-link text-dark" href="/user/login">Login</a>
+        <a class="nav-link text-dark" href="/user/register/">Registration</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <br><br><br><br><br><br>
+    <h2 class="text-center">View Order </h2>
+    <div class="container">
+    	<div class="row">
+    		<div class="col-md-3">
+				<ul class="list-group">
+					<li class="list-group-item">
+						<a href="/add-contact/">Add Order</a>
+					</li>
+					<li class="list-group-item">
+						<a href="/view-orders/">View Past Orders</a>
+					</li>
+					<li class="list-group-item">
+					    Completed Orders
+					</li>
+				</ul>
+    		</div>
+    		<div class="col-md-6 text-center" >
+    		    <p>Order ID: &nbsp {{ order.id }}</p>
+    		    <p>Customer ID: &nbsp {{ order.customer.id}}</p>
+    		    <p>Customer Phone number: &nbsp {{ order.customer.phone_number}}</p>
+    		    <p>Customer Name: &nbsp {{ order.customer.customer_name}}</p>
+    		    <p>Service Name: &nbsp {{ order.service.name }}</p>
+    		    <p>Status: &nbsp {{ order.get_status_display }}</p>
+    		    <p>Payment Status: {{ order.payment_status }}</p>
+    		    <br>
+    		    <h5>Documents</h5>
+    		    <br>
+    		    {% for docs in documents %}
+    		        <div style="border: 1px solid lightgrey;">
+	    		        <small>{{ docs.title }}</small>
+	    		        <a href="{{ docs.file.url }}">View Doc</a><br>
+	    		        <small>Notes: {{ docs.description }}</small>
+    		        </div>
+    		        <br>
+    		    {% endfor %}
+    		</div>
+    		<div class="col-md-3">
+    			<h5>Upload docs</h5>
+    			<a href="/update-documents/{{ order.customer.id}}/{{ order.service.id }}/" class="btn btn-success btn-sm">Add document</a>
+                <br><br>
+                <h5>Checkout</h5>
+    			<a href="/checkout/{{ order.id }}" class="btn-sm btn btn-success">Pay now</a>
+    		</div>
+    	</div>
+    </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'account/navbar.html' %}
+
+{% block title %} Complete client registration{% endblock %}
+
+{% block nav %}
+    {% if user.is_authenticated %}
+        <a class="nav-link text-dark" href="/user/logout">Logout</a>
+        <a class="nav-link text-dark" href="/dashboard/">{{ user.name }}'s Dashboard</a>
+    {% else %}
+        <a class="nav-link text-dark" href="/user/login">Login</a>
+        <a class="nav-link text-dark" href="/user/register/">Registration</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <br><br><br><br><br><br>
+    <h4 class="text-center">Complete client registration</h4>
+    <div class="container text-center">
+    	<div class="row">
+    		<div class="col-md-4 ml-auto mr-auto">
+				<form action = '/user/upload_docs/' method="post" enctype="multipart/form-data">
+				    {% csrf_token %}
+					<small id="emailHelp" class="form-text text-muted">{{ form.non_field_errors }}</small>
+				    <div class="form-group">
+				        <p> Aadhar copy </p>
+				        {{ form.aadhar_details }}
+				        <small id="emailHelp" class="form-text text-muted">{{ form.aadhar_details.errors }}</small>
+				    </div>
+				    <div class="form-group">
+				    	<p> Bank statement copy </p>
+				        {{ form.bank_details }}
+				        <small id="emailHelp" class="form-text text-muted">{{ form.bank_details.errors }}</small>
+				    </div>
+				    <div class="form-group">
+				    	<p> Passport size photo </p>
+				        {{ form.photo }}
+				        <small id="emailHelp" class="form-text text-muted">{{ form.photo.errors }}</small>
+				    </div>
+				    <button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+    		</div>
+    	</div>
+    </div>
+{% endblock %}

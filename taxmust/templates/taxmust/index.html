@@ -1,0 +1,25 @@
+{% extends 'taxmust/navbar.html' %}
+
+{% load static %}
+
+{% block title %}Welcome to Taxmust{% endblock %}
+
+{% block nav %}
+    {% if user.is_authenticated %}
+        <a class="nav-link text-dark" href="/user/logout">Logout</a>
+        <a class="nav-link text-dark" href="/dashboard/">{{ user.name }}'s Dashboard</a>
+    {% else %}
+        <a class="nav-link text-dark" href="/user/login">Login</a>
+        <a class="nav-link text-dark" href="/user/register/">Registration</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %} 
+<div style="background-image: url('{% static 'home.jpg' %}'); background-repeat:no-repeat; background-size:cover; height:650px; padding-top: 310px;">
+	<div class="container">
+		<h1 class="text-light bold">TAXMUST</h1>
+		<p class="text-light">A one-stop solution to all your Tax, <br> & Finance related issues. Satisfaction Guaranteed</p>
+		<button type="button" class="btn btn-outline-light">Click for more</button>
+	</div>
+</div>
+{% endblock %}
