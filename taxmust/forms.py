@@ -11,11 +11,13 @@ class AddContactForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['customer_name'].widget.attrs['class'] = 'form-control'
-        self.fields['customer_name'].widget.attrs['placeholder'] = self.customer_name
+        self.fields['customer_name'].widget.attrs[
+            'placeholder'] = self.customer_name
         self.fields['email'].widget.attrs['class'] = 'form-control'
         self.fields['email'].widget.attrs['placeholder'] = self.email
         self.fields['phone_number'].widget.attrs['class'] = 'form-control'
-        self.fields['phone_number'].widget.attrs['placeholder'] = self.phone_number
+        self.fields['phone_number'].widget.attrs[
+            'placeholder'] = self.phone_number
 
     class Meta:
         model = Contact

@@ -9,17 +9,12 @@ def login_required(func):
             return HttpResponseRedirect('/user/login/')
         elif not user.active:
             return HttpResponseRedirect('/user/confirm_otp/')
+        elif not user.document_submitted:
+            return HttpResponseRedirect('/user/upload_docs/')
         else:
             return func(request, *args, **kwargs)
     return wrapper
 
-
-# document_form_mapping = {
-#     1: BizRegDocumentUploadForm
-# }
-# document_model_mapping = {
-#     1: BizRegistrationDocument
-# }
 
 service_document_mapping = {
     1: ['Pan Card', 'Aadhar Card', 'NOC']
