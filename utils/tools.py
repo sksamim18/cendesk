@@ -16,6 +16,19 @@ def login_required(func):
     return wrapper
 
 
+def login_required_upload_docs(func):
+
+    def wrapper(request, *args, **kwargs):
+        user = request.user
+        if user.is_anonymous:
+            return HttpResponseRedirect('/user/login/')
+        elif not user.active:
+            return HttpResponseRedirect('/user/confirm_otp/')
+        else:
+            return func(request, *args, **kwargs)
+    return wrapper
+
+
 service_document_mapping = {
     1: ['Pan Card', 'Aadhar Card', 'NOC']
 }

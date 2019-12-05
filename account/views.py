@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, login
 
 from django.core.mail import send_mail
 from django.conf import settings
-from utils.tools import login_required
+from utils.tools import login_required, login_required_upload_docs
 from django.contrib.auth import logout
 
 
@@ -91,7 +91,7 @@ def confirm_otp(request):
     return render(request, 'account/confirm_otp.html', context)
 
 
-@login_required
+@login_required_upload_docs
 def upload_docs(request):
     context = {}
     context['form'] = ClientUploadFileForm
