@@ -18,7 +18,11 @@ class RootCategory(models.Model):
 class ParentCategory(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
-    root_category = models.ForeignKey(RootCategory, on_delete=models.CASCADE)
+    root_category = models.ForeignKey(
+        RootCategory,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True)
 
     def __str__(self):
         return self.name
@@ -31,7 +35,10 @@ class Service(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
     parent_category = models.ForeignKey(
-        ParentCategory, on_delete=models.CASCADE)
+        ParentCategory,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True)
     amount = models.IntegerField()
 
     def __str__(self):

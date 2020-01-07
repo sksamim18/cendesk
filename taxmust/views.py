@@ -149,7 +149,7 @@ def checkout(request, order_id):
     context['email'] = request.user.email
     context['service'] = order_instance.service.name
     context['phone_number'] = request.user.username
-    context['amount'] = str(order_instance.service.amount)
+    context['amount'] = str(order_instance.service.amount * 100)
     context['api_key'] = tools.RAZORPAY_KEY_ID
     context['order'] = order_instance
     return render(request, 'taxmust/checkout.html', context)
