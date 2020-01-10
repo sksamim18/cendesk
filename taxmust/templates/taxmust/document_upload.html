@@ -39,13 +39,34 @@
 				    </div>
 				    <button type="submit" class="btn btn-primary">Submit</button>
 				</form>
-    		</div> 
+    		</div>   
             <div class="col-md-4">
                 <h5>Required Documents</h5>
                 {% for each_doc in required_fields %}
                     <small>{{ each_doc }}</small><br>
                 {% endfor %}
-            </div>
+                <br><br>
+                {% if show_checkout %}
+                <div class="">
+                    <form action="/payment-success-url/{{ order.id }}/" method="POST">
+                        {% csrf_token %}
+                        <script
+                            src="https://checkout.razorpay.com/v1/checkout.js"
+                            data-key="{{ api_key }}"
+                            data-amount= "{{ amount }}" 
+                            data-currency="INR"
+                            data-buttontext="Pay now"
+                            data-name="{{ service }}"
+                            data-description="{{ client_name }} has requested for service {{ service  }} for {{ order.customer.customer_name }}. OrderID: {{ order.id }}"
+                            data-prefill.email="{{ email }}"
+                            data-prefill.contact="{{ phone_number }}"
+                            data-theme.color="#F37254">
+                        </script>
+                        <input type="hidden" custom="Hidden Element" name="hidden">
+                        </form>
+                </div>
+                {% endif %}
+            </div> 
     	</div>
     </div>
 {% endblock %}

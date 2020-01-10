@@ -115,11 +115,22 @@ def update_documents(request, customer_id, service_id):
 
     uploaded_document_instances = Document.objects.filter(
         order_id=order_instance)
+
+    context['show_checkout'] = len(tools.service_document_mapping.get(
+        service_id)) <= uploaded_document_instances.count()
     context['uploaded_documents'] = uploaded_document_instances
     context['required_fields'] = tools.service_document_mapping.get(
         service_id)
     context['customer_id'] = customer_id
     context['service_id'] = service_id
+
+    context['client_name'] = request.user.name
+    context['email'] = request.user.email
+    context['service'] = order_instance.service.name
+    context['phone_number'] = request.user.username
+    context['amount'] = str(order_instance.service.amount * 100)
+    context['api_key'] = tools.RAZORPAY_KEY_ID
+
     return render(request, 'taxmust/document_upload.html', context)
 
 
