@@ -20,32 +20,6 @@
     <div class="container">
     	<div class="row">
             <div class="col-md-4">
-                <h5>Uploaded Documents</h5>
-                {% for doc in uploaded_documents %}
-                <div>
-                    <p>{{ doc.title }}</p>
-                    <a class="btn btn-success btn-sm" href="{{ doc.file.url }}">View Document</a>
-                </div>
-                <div class="dropdown-divider"></div>
-                {% endfor %}
-            </div>
-    		<div class="col-md-4">
-                <h5 class="text-center">Add new document</h5>
-				<form action = '/update-documents/{{ customer_id }}/{{ service_id }}/' method="post" enctype="multipart/form-data">
-				    {% csrf_token %}
-					<small id="emailHelp" class="form-text text-muted">{{ form.non_field_errors }}</small>
-				    <div class="form-group">
-				        {{ form }}
-				    </div>
-				    <button type="submit" class="btn btn-primary">Submit</button>
-				</form>
-    		</div>   
-            <div class="col-md-4">
-                <h5>Required Documents</h5>
-                {% for each_doc in required_fields %}
-                    <small>{{ each_doc }}</small><br>
-                {% endfor %}
-                <br><br>
                 {% if show_checkout %}
                 <div class="">
                     <form action="/payment-success-url/{{ order.id }}/" method="POST">
@@ -65,8 +39,35 @@
                         <input type="hidden" custom="Hidden Element" name="hidden">
                         </form>
                 </div>
+                {% else %}
+                    <p>Please upload all the document given below to get the payment url.</p>
                 {% endif %}
-            </div> 
+                <h5>Required Documents</h5>
+                {% for each_doc in required_fields %}
+                    <small>{{ each_doc }}</small><br>
+                {% endfor %}
+            </div>
+    		<div class="col-md-4">
+                <h5 class="text-center">Add new document</h5>
+				<form action = '/update-documents/{{ customer_id }}/{{ service_id }}/' method="post" enctype="multipart/form-data">
+				    {% csrf_token %}
+					<small id="emailHelp" class="form-text text-muted">{{ form.non_field_errors }}</small>
+				    <div class="form-group">
+				        {{ form }}
+				    </div>
+				    <button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+    		</div>
+            <div class="col-md-4">
+                <h5>Uploaded Documents</h5>
+                {% for doc in uploaded_documents %}
+                <div>
+                    <p>{{ doc.title }}</p>
+                    <a class="btn btn-success btn-sm" href="{{ doc.file.url }}">View Document</a>
+                </div>
+                <div class="dropdown-divider"></div>
+                {% endfor %}
+            </div>  
     	</div>
     </div>
 {% endblock %}
