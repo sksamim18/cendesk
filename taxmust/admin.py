@@ -1,7 +1,7 @@
 from django.contrib import admin
 from taxmust.models import (
     RootCategory, ParentCategory, Service,
-    Contact, Order, Document
+    Contact, Order, Document, Note
 )
 
 
@@ -22,3 +22,4 @@ admin.site.register(Service)
 admin.site.register(Contact)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Document, DocumentAdmin)
+admin.site.register(Note)

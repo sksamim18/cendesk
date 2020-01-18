@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from taxmust.forms import AddContactForm, AddServiceForm, DocumentUploadFileForm
 from django.http import HttpResponseRedirect
-from taxmust.models import Service, Order, Contact, Document
+from taxmust.models import Service, Order, Contact, Document, Note
 from django.core.files.storage import FileSystemStorage
-from utils.tools import login_required
+from utils.tools import login_required, login_required_admin
 from utils import tools
+from django.core.paginator import Paginator
+from django.shortcuts import get_object_or_404
 
 
 def index(request):
@@ -176,3 +178,54 @@ def payment_success_url(request, order_id):
     except Exception:
         pass
     return render(request, 'taxmust/payment_success.html')
+
+
+@login_required_admin
+def administration(request):
+    context = {}
+    return render(request, 'taxmust/administration.html', context)
+
+
+@login_required_admin
+def view_all_orders(request):
+    context = {}
+    orders = Order.objects.all().order_by('-id')
+    paginator = Paginator(orders, 25)
+    page_number = request.GET.get('page')
+    context['recent_orders'] = paginator.get_page(page_number)
+    return render(request, 'taxmust/recent_orders.html', context)
+
+
+@login_required_admin
+def admin_orders(request, id):
+    context = {}
+    order = get_object_or_404(Order, id=id)
+    context['order'] = order
+    context['documents'] = order.documents
+    context['note'] = Note.objects.filter(order_id=order.id).first()
+    print(context['note'])
+    return render(request, 'taxmust/admin_order_details.html', context)
+
+
+@login_required_admin
+def update_status(request, id):
+    order = get_object_or_404(Order, id=id)
+    status = request.POST.get('status')
+    status = {
+        'APPLIED': 1,
+        'ACCEPTED': 2,
+        'IN PROGRESS': 3,
+        'COMPLETED': 4
+    }[status]
+    order.status = status
+    order.save()
+    return HttpResponseRedirect('/order-details/{}/'.format(order.id))
+
+
+@login_required_admin
+def add_note(request, id):
+    order = get_object_or_404(Order, id=id)
+    note = request.POST.get('text')
+    note_instance = Note(order_id=order.id, text=note)
+    note_instance.save()
+    return HttpResponseRedirect('/order-details/{}/'.format(order.id))

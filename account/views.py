@@ -24,6 +24,9 @@ def authentication(request):
 
         if user:
             login(request, user)
+
+            if user.is_superuser:
+                return HttpResponseRedirect('/administration/')
             if not user.active:
                 return HttpResponseRedirect('/user/confirm_otp/')
             elif not user.document_submitted:

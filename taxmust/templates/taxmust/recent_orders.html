@@ -1,0 +1,48 @@
+{% extends 'taxmust/navbar.html' %}
+
+{% block title %} Recent Orders{% endblock %}
+
+{% block nav %}
+    {% if user.is_authenticated %}
+        <a class="nav-link text-dark" href="/user/logout">Logout</a>
+        <a class="nav-link text-dark" href="/administration">Admin</a>
+    {% else %}
+        <a class="nav-link text-dark" href="/user/login">Login</a>
+        <a class="nav-link text-dark" href="/user/register/">Registration</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %} 
+    <br><br><br><br><br>
+    <h1 class="text-center">Recent orders</h1><br><br>
+    <div class="container">
+        <div class="row text-center" style="margin-left: auto; margin-right: auto;">
+            {% for order in recent_orders %}
+            <div class="col-md-3" style="background-color: white; border: 1px solid lightgrey; margin: 2%; padding: 2%;">
+                <h5>{{ order.service.name }}</h5>
+                <p>Customer name: {{ order.customer.customer_name }}</p>
+                <p>Client phone number: {{ order.customer.client.username }}</p>
+                <a href="/order-details/{{order.id}}/" class="btn btn-default">view order details</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="pagination">
+        <span class="step-links text-center" style="margin: auto;">
+            {% if recent_orders.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ recent_orders.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ recent_orders.number }} of {{ recent_orders.paginator.num_pages }}.
+            </span>
+
+            {% if recent_orders.has_next %}
+                <a href="?page={{ recent_orders.next_page_number }}">next</a>
+                <a href="?page={{ recent_orders.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    <br><br>
+{% endblock %}

@@ -92,3 +92,11 @@ class Document(models.Model):
 
     def __str__(self):
         return self.file.url
+
+
+class Note(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    text = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.text

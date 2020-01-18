@@ -20,6 +20,10 @@
     <div class="container">
     	<div class="row">
             <div class="col-md-4">
+                <h5>Required Documents</h5>
+                {% for each_doc in required_fields %}
+                    <small>{{ each_doc }}</small><br>
+                {% endfor %}
                 {% if show_checkout %}
                 <div class="">
                     <form action="/payment-success-url/{{ order.id }}/" method="POST">
@@ -40,12 +44,8 @@
                         </form>
                 </div>
                 {% else %}
-                    <p>Please upload all the document given below to get the payment url.</p>
+                    <p>Please upload all the document given above to get the payment url.</p>
                 {% endif %}
-                <h5>Required Documents</h5>
-                {% for each_doc in required_fields %}
-                    <small>{{ each_doc }}</small><br>
-                {% endfor %}
             </div>
     		<div class="col-md-4">
                 <h5 class="text-center">Add new document</h5>

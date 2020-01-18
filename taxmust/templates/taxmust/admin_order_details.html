@@ -1,0 +1,62 @@
+{% extends 'taxmust/navbar.html' %}
+
+{% block title %} Recent Orders{% endblock %}
+
+{% block nav %}
+    {% if user.is_authenticated %}
+        <a class="nav-link text-dark" href="/user/logout">Logout</a>
+        <a class="nav-link text-dark" href="/administration">Admin</a>
+    {% else %}
+        <a class="nav-link text-dark" href="/user/login">Login</a>
+        <a class="nav-link text-dark" href="/user/register/">Registration</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <br><br><br><br><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <p>Client Phone number: {{ order.customer.client.username }}</p>
+                <p>Service name: {{ order.service.name }}</p>
+                <p>Customer phone number: {{ order.customer.phone_number }}</p>
+                <p>Order ID: {{ order.id }}</p>
+                <p>Order Status: {{ order.get_status_display }}</p>
+                <small>Note: {{ note.text }}</small>
+            </div>
+            <div class="col-md-4">
+                <h5>Uploaded Documents</h5>
+                {% for doc in documents %}
+                <div>
+                    <p>{{ doc.title }}</p>
+                    <a class="btn btn-success btn-sm" href="{{ doc.file.url }}">View Document</a>
+                </div>
+                <div class="dropdown-divider"></div>
+                {% endfor %}
+            </div>
+            <div class="col-md-4">
+                <form action="/update-status/{{ order.id }}/" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Update Status</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="status">
+                            <option>APPLIED</option>
+                            <option>ACCEPTED</option>
+                            <option>IN PROGRESS</option>
+                            <option>COMPLETED</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <form action="/add-note/{{ order.id }}/" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Add a note</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="text" required="true"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div> 
+{% endblock %}

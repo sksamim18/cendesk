@@ -14,5 +14,10 @@ urlpatterns = [
     path('view-orders/', views.view_orders, name="view_orders"),
     path('order/<int:id>/', views.order_details, name="view_orders"),
     path('checkout/<int:order_id>', views.checkout, name="checkout"),
-    path('payment-success-url/<int:order_id>/', views.payment_success_url, name="payment_success_url")
+    path('payment-success-url/<int:order_id>/', views.payment_success_url, name="payment_success_url"),
+    path('administration/', views.administration, name='adminsitration'),
+    path('view-all-orders/', views.view_all_orders, name='view_all_orders'),
+    path('order-details/<int:id>/', views.admin_orders, name="admin_orders"),
+    path('update-status/<int:id>/', views.update_status, name="update_status"),
+    path('add-note/<int:id>/', views.add_note, name="add_note")
 ]

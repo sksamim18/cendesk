@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseNotFound
 
 
 def login_required(func):
@@ -26,6 +26,27 @@ def login_required_upload_docs(func):
             return HttpResponseRedirect('/user/confirm_otp/')
         else:
             return func(request, *args, **kwargs)
+    return wrapper
+
+
+def login_required_admin_client(func):
+
+    def wrapper(request, *args, **kwargs):
+        user = request.user
+        if user.is_anonymous:
+            return HttpResponseRedirect('/user/login/')
+        else:
+            return func(request, *args, **kwargs)
+    return wrapper
+
+
+def login_required_admin(func):
+
+    def wrapper(request, *args, **kwargs):
+        user = request.user
+        if user.is_superuser:
+            return func(request, *args, **kwargs)
+        return HttpResponseNotFound('Page not accessable')
     return wrapper
 
 
